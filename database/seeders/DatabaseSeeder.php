@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         DB::table('job_listings')->truncate();
         DB::table('users')->truncate();
         DB::table('job_user_bookmarks')->truncate();
+        DB::table('applicants')->truncate();
 
         //seed the database with our data
         //call the user seeder first because the job seeder is dependent on the userId

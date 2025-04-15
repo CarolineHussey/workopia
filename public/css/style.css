@@ -11,3 +11,8 @@
 .hero {
     background-image: url("../images/hero.jpg");
 }
+
+/*To fix the modal load blip (AlpineJS)*/
+[x-cloak] {
+    display: none !important;
+}
