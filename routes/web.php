@@ -14,6 +14,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\BookmarkController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/jobs/search', [JobController::class, 'search'])->name('jobs.search');
 //apply middleware auth to these endpoints (this will also create these endpoints)
 Route::resource('jobs', JobController::class)->middleware('auth')->only(['create', 'edit', 'update', 'destroy']);
 //create all other endpoints following /jobs not listed by middleware directive

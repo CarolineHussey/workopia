@@ -161,4 +161,43 @@ class JobController extends Controller
 
         return redirect('/jobs')->with('success', 'Job listing successfully deleted!');
     }
+
+    //@desc search job listings
+    //@route GET /job/search
+
+    public function search(Request $request): View {
+        
+        $keywords = strtolower($request->input('keywords'));
+        $location = strtolower($request->input('location'));
+        //dd($keywords, $location);
+        
+        $query = Job::query();
+        
+        //keywords search
+        if($keywords) {
+            //use closure (the anonymous function) to encapsulate multiple conditions for the where clause
+            $query->where(function ($q) use ($keywords) {
+                //match keyword to anything in title
+                //whereRaw allows us to pass SQL
+                $q->whereRaw('LOWER(title) like ?', ['%' . $keywords . '%'])
+                ->orWhereRaw('LOWER(description) like ?', ['%' . $keywords . '%'])
+                ->orWhereRaw('LOWER(tags) like ?', ['%' . $keywords . '%']);
+            });
+        }
+
+        //location search
+        if($location) {
+            $query->where(function ($q) use ($location) {
+                $q->whereRaw('LOWER(address) like ?', ['%' . $location . '%'])
+                ->orWhereRaw('LOWER(city) like ?', ['%' . $location . '%'])
+                ->orWhereRaw('LOWER(county) like ?', ['%' . $location . '%'])
+                ->orWhereRaw('LOWER(postal_code) like ?', ['%' . $location . '%']);
+            });
+        }
+
+        $jobs = $query->paginate(12);
+
+        return view('jobs.index')->with('jobs', $jobs);
+
+    }
 }
