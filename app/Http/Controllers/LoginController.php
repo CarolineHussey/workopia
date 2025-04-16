@@ -47,7 +47,7 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect('home');
+        return redirect()->route('login')->with('success', 'You have successfully logged out');
     }
 
 }

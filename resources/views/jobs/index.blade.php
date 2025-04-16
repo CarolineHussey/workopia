@@ -1,6 +1,9 @@
 <x-layout>
   <h1 class="text-2xl font-bold mb-5">All Jobs</h1>
-  <div class="bg-blue-900 h-24 px-4 mb-4 flex justify-center items-center rounded"><x-search /></div>
+  <div class="bg-blue-900 h-24 px-4 mb-4 flex justify-center items-center rounded">
+    <x-search />
+  </div>
+
   {{--Back Button--}}
 
   @if(request()->has('keywords') || request()->has('location'))

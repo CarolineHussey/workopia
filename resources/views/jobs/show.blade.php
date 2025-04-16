@@ -208,18 +208,16 @@
 
     // Get address from Laravel view
     const city = '{{ $job->city }}';
-    const state = '{{ $job->state }}';
-    const address = city + ', ' + state;
-
+    const county = '{{ $job->county }}';
+    const address = city + ', ' + county;
     // Geocode the address
     fetch(
-      `/geodode?address=${encodeURIComponent(address)}`
+      `/geocode?address=${encodeURIComponent(address)}`
     )
       .then((response) => response.json())
       .then((data) => {
         if (data.features.length > 0) {
           const [longitude, latitude] = data.features[0].center;
-
           // Center the map and add a marker
           map.setCenter([longitude, latitude]);
           map.setZoom(14);
